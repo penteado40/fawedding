@@ -49,7 +49,7 @@ export const WeddingNav = () => {
               scrolled ? "text-[hsl(var(--rosé))]" : "text-[hsl(var(--rosé-light))]"
             }`}
           />
-          Isabella &amp; Rafael
+          Felipe &amp; Amanda
         </button>
 
         {/* Desktop links */}

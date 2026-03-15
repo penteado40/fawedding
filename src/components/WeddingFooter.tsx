@@ -1,17 +1,17 @@
-import footerCoupleImg from "@/assets/footer-couple.jpg";
 import { Heart, Phone, Instagram, MessageCircle } from "lucide-react";
+import footerPhoto from "@/assets/foto3_f&a.jpeg";
 
 export const WeddingFooter = () => {
   return (
     <footer id="footer-section" className="relative overflow-hidden">
-      {/* Photo with gradient overlay */}
+      {/* Background photo */}
       <div className="relative h-[520px] md:h-[600px]">
         <img
-          src={footerCoupleImg}
-          alt="Isabella & Rafael"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          src={footerPhoto}
+          alt="Felipe e Amanda"
+          // className="absolute inset-0 w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-[20%_45%]"
         />
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
         {/* Content over photo */}
@@ -28,9 +28,9 @@ export const WeddingFooter = () => {
 
           {/* Names */}
           <h2 className="font-display font-light text-4xl md:text-6xl text-white mb-2">
-            Isabella{" "}
+            Felipe{" "}
             <span className="italic text-[hsl(var(--rosé-light))]">&amp;</span>{" "}
-            Rafael
+            Amanda
           </h2>
 
           {/* Date */}
@@ -71,7 +71,7 @@ export const WeddingFooter = () => {
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-full text-sm font-body hover:bg-white/20 transition-all duration-200"
             >
               <Instagram size={15} />
-              @isabellaerafael
+              @felipeeamanda
             </a>
           </div>
         </div>

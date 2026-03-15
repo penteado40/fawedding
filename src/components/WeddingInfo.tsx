@@ -5,34 +5,26 @@ const details = [
   {
     icon: Calendar,
     label: "Data",
-    value: "14 de Fevereiro de 2026",
-    sub: "Sábado",
+    value: "28 de Maio de 2026",
+    sub: "Quinta-feira",
     color: "var(--rosé)",
     bg: "var(--rosé-light)",
   },
   {
     icon: Clock,
     label: "Horário",
-    value: "16h00",
-    sub: "Cerimônia · 19h00 Recepção",
+    value: "10h00",
+    sub: "Início da cerimônia",
     color: "var(--sage)",
     bg: "var(--sage-light)",
   },
   {
     icon: MapPin,
-    label: "Cerimônia",
-    value: "Igreja Nossa Senhora da Graça",
-    sub: "Av. Paulista, 1000 — São Paulo, SP",
+    label: "Local",
+    value: "Casa Vilella — Itatiba",
+    sub: "Itatiba, São Paulo",
     color: "var(--peach)",
     bg: "40 60% 93%",
-  },
-  {
-    icon: MapPin,
-    label: "Recepção",
-    value: "Espaço Villa Jardim",
-    sub: "R. das Flores, 200 — São Paulo, SP",
-    color: "var(--lavender)",
-    bg: "260 50% 93%",
   },
 ];
 
@@ -80,7 +72,7 @@ export const WeddingInfo = () => {
         </div>
 
         {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {details.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -138,7 +130,7 @@ export const WeddingInfo = () => {
           </a>
 
           {/* Countdown */}
-          <CountdownTimer targetDate="2026-02-14" />
+          <CountdownTimer targetDate="2026-05-28T10:00:00" />
         </div>
       </div>
     </section>
@@ -150,7 +142,9 @@ const CountdownTimer = ({ targetDate }: { targetDate: string }) => {
 
   useEffect(() => {
     const calc = () => {
-      const diff = new Date(targetDate).getTime() - Date.now();
+      // Interpret targetDate in the user's local timezone
+      const target = new Date(targetDate);
+      const diff = target.getTime() - Date.now();
       if (diff <= 0) return;
       setTimeLeft({
         days: Math.floor(diff / 86400000),
