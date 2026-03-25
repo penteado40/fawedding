@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 20 15% 25%;
 
-    --primary: 340 45% 68%;           /* rosé pink */
+    --primary: 182 20% 68%;           /* dusty blue #9EBEBF */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 150 20% 60%;         /* sage / olive green */
@@ -33,13 +33,13 @@
 
     --border: 30 20% 88%;
     --input: 30 20% 88%;
-    --ring: 340 45% 68%;
+    --ring: 182 20% 68%;
 
     --radius: 1rem;
 
     /* ── Custom Wedding Tokens ── */
-    --rosé: 340 45% 68%;
-    --rosé-light: 340 60% 93%;
+    --rosé: 182 20% 68%;
+    --rosé-light: 182 35% 92%;
     --sage: 150 20% 60%;
     --sage-light: 150 25% 90%;
     --peach: 25 80% 80%;
@@ -53,9 +53,9 @@
     --gradient-card: linear-gradient(135deg, hsl(var(--rosé-light)), hsl(var(--cream)));
     --gradient-section: linear-gradient(180deg, hsl(var(--cream)) 0%, hsl(var(--muted)) 100%);
 
-    --shadow-soft: 0 4px 24px -4px rgba(180,120,130,0.15);
-    --shadow-card: 0 8px 32px -8px rgba(180,120,130,0.20);
-    --shadow-hover: 0 16px 48px -12px rgba(180,120,130,0.30);
+    --shadow-soft: 0 4px 24px -4px rgba(158, 190, 191, 0.15);
+    --shadow-card: 0 8px 32px -8px rgba(158, 190, 191, 0.20);
+    --shadow-hover: 0 16px 48px -12px rgba(158, 190, 191, 0.30);
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'Jost', system-ui, sans-serif;

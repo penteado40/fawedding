@@ -115,7 +115,7 @@ export const GiftCarousel = () => {
           </h2>
           <p className="font-body text-muted-foreground max-w-md mx-auto leading-relaxed">
             Se deseja nos presentear, escolha um dos itens abaixo. Cada gesto
-            de carinho tornará esse dia ainda mais especial. 💕
+            de carinho tornará esse dia ainda mais especial.
           </p>
         </div>
 
@@ -202,7 +202,7 @@ const GiftCard = ({
           <span className="font-display text-lg font-semibold text-[hsl(var(--rosé))]">
             {gift.price}
           </span>
-          <button className="px-4 py-2 bg-[hsl(var(--rosé))] text-[hsl(var(--primary-foreground))] text-xs font-body tracking-wider uppercase rounded-full hover:bg-[hsl(340,50%,58%)] transition-colors duration-200 shadow-soft">
+          <button className="px-4 py-2 bg-[hsl(var(--rosé))] text-[hsl(var(--primary-foreground))] text-xs font-body tracking-wider uppercase rounded-full hover:bg-[hsl(182,20%,58%)] transition-colors duration-200 shadow-soft">
             Presentear
           </button>
         </div>
