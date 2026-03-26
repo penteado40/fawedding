@@ -9,8 +9,8 @@ const Index = () => {
     <main className="min-h-screen">
       <WeddingNav />
       <HeroSection />
-      <GiftCarousel />
       <WeddingInfo />
+      <GiftCarousel />
       <WeddingFooter />
     </main>
   );

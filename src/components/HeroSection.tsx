@@ -22,8 +22,8 @@ export const HeroSection = () => {
       <img
         src={heroPhoto}
         alt="Felipe e Amanda"
-        // className="absolute inset-0 w-full h-full object-cover object-center"
-        className="absolute inset-0 w-full h-full object-cover object-[20%_40%]"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        // className="absolute inset-0 w-full h-full object-cover object-[20%_40%]"
       />
 
       {/* Overlay */}

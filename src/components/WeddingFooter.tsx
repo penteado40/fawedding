@@ -1,5 +1,5 @@
-import { Heart, Phone, Instagram, MessageCircle } from "lucide-react";
-import footerPhoto from "@/assets/foto3_f&a.jpeg";
+import { Heart } from "lucide-react";
+import footerPhoto from "@/assets/f&a_footer.jpg";
 
 export const WeddingFooter = () => {
   return (
@@ -15,7 +15,7 @@ export const WeddingFooter = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
         {/* Content over photo */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-end pb-14 px-6 text-center">
+        <div className="relative z-10 h-full flex flex-col items-center justify-center py-14 px-6 text-center">
           {/* Divider with hearts */}
           <div className="flex items-center gap-3 mb-6">
             <div className="h-px w-12 bg-[hsl(var(--rosé-light))]/60" />
@@ -35,45 +35,15 @@ export const WeddingFooter = () => {
 
           {/* Date */}
           <p className="font-body text-white/70 tracking-[0.3em] text-xs uppercase mb-8">
-            14 · 02 · 2026
+            28 · 05 · 2026
           </p>
 
           {/* Final message */}
-          <p className="font-display italic text-white/85 text-xl md:text-2xl max-w-xl mb-10 leading-relaxed">
-            "Com amor, esperamos você nesse grande dia."
+          <p className="font-display italic text-white/85 text-xl md:text-2xl max-w-xl mb-0 leading-relaxed">
+            “Nem olhos viram, nem ouvidos ouviram o que Deus
+            preparou para nós. Um futuro certo cheio de esperança e
+            paz.” – Coríntios 2:9
           </p>
-
-          {/* Contact & socials */}
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="https://wa.me/5511999999999"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-full text-sm font-body hover:bg-white/20 transition-all duration-200"
-            >
-              <MessageCircle size={15} />
-              (11) 99999-9999
-            </a>
-            <a
-              href="tel:+5511999999999"
-              aria-label="Telefone"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-full text-sm font-body hover:bg-white/20 transition-all duration-200"
-            >
-              <Phone size={15} />
-              Ligar
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-4 py-2 rounded-full text-sm font-body hover:bg-white/20 transition-all duration-200"
-            >
-              <Instagram size={15} />
-              @felipeeamanda
-            </a>
-          </div>
         </div>
       </div>
 
