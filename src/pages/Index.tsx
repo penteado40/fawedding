@@ -1,7 +1,7 @@
 import { HeroSection } from "@/components/HeroSection";
 import { GiftCarousel } from "@/components/GiftCarousel";
 import { WeddingInfo } from "@/components/WeddingInfo";
-import { WeddingDress } from "@/components/WeddingDress";
+import { DressCarousel } from "@/components/DressCarousel";
 import { WeddingFooter } from "@/components/WeddingFooter";
 import { WeddingNav } from "@/components/WeddingNav";
 
@@ -11,7 +11,7 @@ const Index = () => {
       <WeddingNav />
       <HeroSection />
       <WeddingInfo />
-      <WeddingDress />
+      <DressCarousel />
       <GiftCarousel />
       <WeddingFooter />
     </main>
