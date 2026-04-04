@@ -1,19 +1,17 @@
 import { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import foto1 from "@/assets/f&a_traje_exemplo/foto1.png";
-import foto2 from "@/assets/f&a_traje_exemplo/foto2.png";
 import foto3 from "@/assets/f&a_traje_exemplo/foto3.png";
 import foto4 from "@/assets/f&a_traje_exemplo/foto4.png";
 import foto5 from "@/assets/f&a_traje_exemplo/foto5.png";
 import foto6 from "@/assets/f&a_traje_exemplo/foto6.png";
 import foto7 from "@/assets/f&a_traje_exemplo/foto7.png";
-import foto8 from "@/assets/f&a_traje_exemplo/foto8.png";
 import foto9 from "@/assets/f&a_traje_exemplo/foto9.png";
 import foto10 from "@/assets/f&a_traje_exemplo/foto10.png";
 import foto11 from "@/assets/f&a_traje_exemplo/foto11.png";
 import foto12 from "@/assets/f&a_traje_exemplo/foto12.png";
 
-const photos = [foto1, foto2, foto3, foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, foto12];
+const photos = [foto1, foto3, foto4, foto5, foto6, foto7, foto9, foto10, foto11, foto12];
 
 const cores = [
   "#E07B39", "#7BAE5A", "#E8C84A", "#5B9BD5",

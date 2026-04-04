@@ -56,10 +56,17 @@ export const WeddingInfo = () => {
       <img
         src={weddingPlace}
         alt="Local do casamento — Casa Vilella"
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: "center top" }}
       />
-      {/* White gradient overlay — right side only, above photo, below content */}
-      <div className="absolute right-0 inset-y-0 w-[60%] bg-gradient-to-r from-transparent to-black/70 z-[1]" />
+      {/* Gradient overlay — top to bottom */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(180,210,200,0.75) 100%)",
+        }}
+      />
 
       <div className="relative z-10 container mx-auto px-4 max-w-5xl">
         <div className="flex justify-end">
@@ -74,23 +81,23 @@ export const WeddingInfo = () => {
                 className="mx-auto mb-4 drop-shadow-sm text-[hsl(var(--rosé-light))] fill-[hsl(var(--rosé-light))]"
               />
               <h2
-                className="font-display text-4xl md:text-5xl text-white font-light mb-4"
+                className="font-display text-4xl md:text-5xl text-charcoal font-light mb-4"
               >
                 Informações do{" "}
-                <span className="italic text-[hsl(var(--rosé-light))]">Casamento</span>
+                <span className="italic text-[hsl(var(--rosé))]">Casamento</span>
               </h2>
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="h-px w-14 bg-white/40" />
+                <div className="h-px w-14 bg-charcoal/30" />
                 <img
                   src={faLogo}
                   alt=""
-                  className="h-[5.5rem] md:h-24 w-auto max-w-[min(320px,80vw)] object-contain brightness-0 invert opacity-90 drop-shadow-sm"
+                  className="h-[5.5rem] md:h-24 w-auto max-w-[min(320px,80vw)] object-contain opacity-90 drop-shadow-sm"
                   aria-hidden
                 />
-                <div className="h-px w-14 bg-white/40" />
+                <div className="h-px w-14 bg-charcoal/30" />
               </div>
               <p
-                className="font-body text-white/85 leading-relaxed"
+                className="font-body text-charcoal/80 leading-relaxed"
               >
                 Sua presença é muito importante para nós. Será uma alegria
                 compartilhar esse momento tão especial ao seu lado.
@@ -163,7 +170,7 @@ export const WeddingInfo = () => {
                 href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-white/80 text-white font-body text-sm tracking-widest uppercase hover:bg-white hover:text-[hsl(var(--rosé))] transition-all duration-300 shadow-soft hover:shadow-card"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-white/30 bg-white/20 backdrop-blur-sm text-white font-body text-sm tracking-widest uppercase hover:bg-white hover:text-[hsl(var(--rosé))] transition-all duration-300 shadow-soft hover:shadow-card"
               >
                 <MapPin size={15} />
                 Ver no Mapa

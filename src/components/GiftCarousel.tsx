@@ -1,64 +1,32 @@
 import { useRef, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight, Gift } from "lucide-react";
-import giftDinner from "@/assets/gift-dinner.jpg";
-import giftHoneymoon from "@/assets/gift-honeymoon.jpg";
-import giftBedding from "@/assets/gift-bedding.jpg";
-import giftDinnerware from "@/assets/gift-dinnerware.jpg";
-import giftMixer from "@/assets/gift-mixer.jpg";
-import giftSpa from "@/assets/gift-spa.jpg";
-import giftWine from "@/assets/gift-wine.jpg";
 
-const gifts = [
-  {
-    image: giftDinner,
-    name: "Jantar Romântico",
-    description: "Uma noite inesquecível a dois em restaurante especial, com menu degustação completo.",
-    price: "R$ 450,00",
-  },
-  {
-    image: giftHoneymoon,
-    name: "Lua de Mel",
-    description: "Contribua para a viagem dos nossos sonhos e ajude a tornar essa memória ainda mais especial.",
-    price: "R$ 500,00",
-  },
-  {
-    image: giftBedding,
-    name: "Jogo de Cama Premium",
-    description: "Roupa de cama de linho egípcio para tornar cada manhã mais aconchegante e sofisticada.",
-    price: "R$ 380,00",
-  },
-  {
-    image: giftDinnerware,
-    name: "Aparelho de Jantar",
-    description: "Conjunto de porcelana fina com detalhes florais para os momentos especiais a dois.",
-    price: "R$ 520,00",
-  },
-  {
-    image: giftMixer,
-    name: "Batedeira Artisan",
-    description: "A famosa batedeira Rose Gold para transformar a cozinha em um ateliê de sabores.",
-    price: "R$ 890,00",
-  },
-  {
-    image: giftSpa,
-    name: "Dia de Spa",
-    description: "Presenteie com uma experiência de bem-estar e relaxamento total para o casal.",
-    price: "R$ 320,00",
-  },
-  {
-    image: giftWine,
-    name: "Kit de Vinhos",
-    description: "Seleção especial de vinhos finos e taças de cristal para os momentos de celebração.",
-    price: "R$ 290,00",
-  },
-];
+interface GiftItem {
+  id: string;
+  name: string;
+  image: string | null;
+  amazonLink: string | null;
+  price: number;
+}
 
+const fetchGifts = async (): Promise<GiftItem[]> => {
+  const res = await fetch(`${import.meta.env.URL_API}/gifts`);
+  if (!res.ok) throw new Error("Erro ao buscar presentes");
+  const json = await res.json();
+  return json.data;
+};
 export const GiftCarousel = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [visible, setVisible] = useState(false);
+
+  const { data: gifts = [], isLoading, isError } = useQuery({
+    queryKey: ["gifts"],
+    queryFn: fetchGifts,
+  });
 
   const checkScroll = () => {
     const el = trackRef.current;
@@ -74,7 +42,7 @@ export const GiftCarousel = () => {
       checkScroll();
       return () => el.removeEventListener("scroll", checkScroll);
     }
-  }, []);
+  }, [gifts]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -132,13 +100,19 @@ export const GiftCarousel = () => {
           </button>
 
           {/* Track */}
-          <div
-            ref={trackRef}
-            className="carousel-track px-4 md:px-8"
-          >
-            {gifts.map((gift, i) => (
-              <GiftCard key={i} gift={gift} index={i} visible={visible} />
-            ))}
+          <div ref={trackRef} className="carousel-track px-4 md:px-8">
+            {isError && (
+              <p className="font-body text-sm text-muted-foreground px-2">
+                Não foi possível carregar a lista de presentes.
+              </p>
+            )}
+            {isLoading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <SkeletonCard key={i} />
+                ))
+              : gifts.map((gift, i) => (
+                  <GiftCard key={i} gift={gift} index={i} visible={visible} />
+                ))}
           </div>
 
           {/* Right arrow */}
@@ -161,12 +135,26 @@ export const GiftCarousel = () => {
   );
 };
 
+const SkeletonCard = () => (
+  <div className="w-64 md:w-72 bg-card rounded-2xl overflow-hidden shadow-card flex flex-col animate-pulse">
+    <div className="h-48 bg-muted" />
+    <div className="p-5 flex flex-col gap-3">
+      <div className="h-5 bg-muted rounded w-3/4" />
+      <div className="h-8 bg-muted rounded w-full" />
+      <div className="flex items-center justify-between mt-2">
+        <div className="h-5 bg-muted rounded w-1/3" />
+        <div className="h-8 bg-muted rounded-full w-24" />
+      </div>
+    </div>
+  </div>
+);
+
 const GiftCard = ({
   gift,
   index,
   visible,
 }: {
-  gift: (typeof gifts)[0];
+  gift: GiftItem;
   index: number;
   visible: boolean;
 }) => {
@@ -182,29 +170,35 @@ const GiftCard = ({
     >
       {/* Image */}
       <div className="relative overflow-hidden h-48">
-        <img
-          src={gift.image}
-          alt={gift.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
+        {gift.image && (
+          <img
+            src={gift.image}
+            alt={gift.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
       </div>
 
       {/* Body */}
       <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-display text-xl text-charcoal font-medium mb-1">
+        <h3 className="font-display text-xl text-charcoal font-medium mb-4">
           {gift.name}
         </h3>
-        <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
-          {gift.description}
-        </p>
         <div className="flex items-center justify-between mt-auto">
           <span className="font-display text-lg font-semibold text-[hsl(var(--rosé))]">
-            {gift.price}
+            {gift.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
           </span>
-          <button className="px-4 py-2 bg-[hsl(var(--rosé))] text-[hsl(var(--primary-foreground))] text-xs font-body tracking-wider uppercase rounded-full hover:bg-[hsl(182,20%,58%)] transition-colors duration-200 shadow-soft">
-            Presentear
-          </button>
+          {gift.amazonLink && (
+            <a
+              href={gift.amazonLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-[hsl(var(--rosé))] text-[hsl(var(--primary-foreground))] text-xs font-body tracking-wider uppercase rounded-full hover:bg-[hsl(182,20%,58%)] transition-colors duration-200 shadow-soft"
+            >
+              Presentear
+            </a>
+          )}
         </div>
       </div>
     </div>
