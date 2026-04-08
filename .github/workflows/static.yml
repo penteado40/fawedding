@@ -12,7 +12,8 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: true
-
+env:
+    VITE_API_URL: ${{ secrets.VITE_API_URL }}
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
