@@ -11,7 +11,7 @@ interface GiftItem {
 }
 
 const fetchGifts = async (): Promise<GiftItem[]> => {
-  const res = await fetch(`${import.meta.env.URL_API}/gifts`);
+  const res = await fetch(`${import.meta.env.VITE_URL_API}/gifts`);
   if (!res.ok) throw new Error("Erro ao buscar presentes");
   const json = await res.json();
   return json.data;

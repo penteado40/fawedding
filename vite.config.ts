@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   base: mode === "production" ? "/fawedding/" : "/",
 
   assetsInclude: ["**/*.PNG"],
-  envPrefix: "URL_API",
+  envPrefix: "VITE_URL_API",
   server: {
     host: "::",
     port: 8080,
