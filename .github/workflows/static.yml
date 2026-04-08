@@ -22,8 +22,8 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: |
-        echo "API URL definida: $VITE_API_URL"
-        bun run build
+          echo "API URL definida: $VITE_API_URL"
+          bun run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
