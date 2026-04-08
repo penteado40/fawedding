@@ -6,9 +6,14 @@ const links = [
   { label: "Presentes", href: "#gifts-section" },
   { label: "Informações", href: "#info-section" },
   { label: "Contato", href: "#footer-section" },
+  { label: "Área dos Noivos", href: "#noivos" },
 ];
 
-export const WeddingNav = () => {
+interface WeddingNavProps {
+  onBrideGroomClick: () => void;
+}
+
+export const WeddingNav = ({ onBrideGroomClick }: WeddingNavProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -20,6 +25,10 @@ export const WeddingNav = () => {
 
   const handleNav = (href: string) => {
     setMenuOpen(false);
+    if (href === "#noivos") {
+      onBrideGroomClick();
+      return;
+    }
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
