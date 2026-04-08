@@ -16,6 +16,7 @@ const fetchGifts = async (): Promise<GiftItem[]> => {
   const json = await res.json();
   return json.data;
 };
+
 export const GiftCarousel = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
