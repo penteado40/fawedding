@@ -20,9 +20,9 @@ jobs:
         run: bun install
       - name: Build
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_URL_API: ${{ secrets.VITE_URL_API }}
         run: |
-          echo "API URL definida: $VITE_API_URL"
+          echo "API URL definida: $VITE_URL_API"
           bun run build
       - name: Setup Pages
         uses: actions/configure-pages@v5
