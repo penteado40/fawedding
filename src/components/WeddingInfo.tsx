@@ -17,7 +17,7 @@ const details = [
   {
     icon: Clock,
     label: "Horário",
-    value: "10h00",
+    value: "09h30",
     sub: "Início da cerimônia",
     color: "var(--sage)",
     bg: "var(--sage-light)",
