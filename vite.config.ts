@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/fawedding/" : "/",
+  base: "/",
 
   assetsInclude: ["**/*.PNG"],
   envPrefix: "VITE_URL_API",
