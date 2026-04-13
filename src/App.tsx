@@ -14,7 +14,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter
-        basename={import.meta.env.PROD ? "/fawedding/" : "/"}
+        basename={"/"}
       >
         <Routes>
           <Route path="/" element={<Index />} />
