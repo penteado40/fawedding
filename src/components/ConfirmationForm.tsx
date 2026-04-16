@@ -5,8 +5,10 @@ import confirmationBg from "@/assets/f&a_confirmation.jpg";
 export const ConfirmationForm = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const [form, setForm] = useState({ nome: "", email: "", telefone: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -21,9 +23,23 @@ export const ConfirmationForm = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_URL_API}/rsvps`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Erro ao confirmar presença.");
+      setSubmitted(true);
+    } catch {
+      setError("Não foi possível confirmar sua presença. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,7 +83,7 @@ export const ConfirmationForm = () => {
               <Heart size={48} className="mx-auto text-[hsl(var(--rosé))] fill-current mb-4" />
               <h3 className="font-display text-2xl text-charcoal mb-2">Presença confirmada!</h3>
               <p className="font-body text-muted-foreground">
-                Obrigado, <strong>{form.nome}</strong>! Mal podemos esperar para celebrar com você.
+                Obrigado, <strong>{form.name}</strong>! Mal podemos esperar para celebrar com você.
               </p>
             </div>
           ) : (
@@ -78,10 +94,10 @@ export const ConfirmationForm = () => {
                 </label>
                 <input
                   id="nome"
-                  name="nome"
+                  name="name"
                   type="text"
                   required
-                  value={form.nome}
+                  value={form.name}
                   onChange={handleChange}
                   placeholder="Seu nome"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
@@ -110,10 +126,10 @@ export const ConfirmationForm = () => {
                 </label>
                 <input
                   id="telefone"
-                  name="telefone"
+                  name="phone"
                   type="tel"
                   required
-                  value={form.telefone}
+                  value={form.phone}
                   onChange={handleChange}
                   placeholder="(11) 99999-9999"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
@@ -122,10 +138,14 @@ export const ConfirmationForm = () => {
 
               <button
                 type="submit"
-                className="mt-2 w-full py-3.5 bg-[hsl(var(--rosé))] text-white font-body text-xs tracking-widest uppercase rounded-full hover:bg-[hsl(182,20%,48%)] active:scale-95 transition-all duration-200 shadow-soft"
+                disabled={loading}
+                className="mt-2 w-full py-3.5 bg-[hsl(var(--rosé))] text-white font-body text-xs tracking-widest uppercase rounded-full hover:bg-[hsl(182,20%,48%)] active:scale-95 transition-all duration-200 shadow-soft disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Confirmar Presença
+                {loading ? "Confirmando..." : "Confirmar Presença"}
               </button>
+              {error && (
+                <p className="font-body text-xs text-red-500 text-center">{error}</p>
+              )}
             </form>
           )}
         </div>
