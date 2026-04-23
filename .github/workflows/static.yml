@@ -21,6 +21,7 @@ jobs:
       - name: Build
         env:
           VITE_URL_API: ${{ secrets.VITE_URL_API }}
+          VITE_URL_GIFTS: ${{ secrets.VITE_URL_GIFTS }}
         run: |
           echo "API URL definida: $VITE_URL_API"
           bun run build
