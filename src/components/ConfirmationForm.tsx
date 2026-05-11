@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import confirmationBg from "@/assets/f&a_confirmation.jpg";
+import { apiClient } from "@/lib/api-client";
 
 export const ConfirmationForm = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -28,12 +29,7 @@ export const ConfirmationForm = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${import.meta.env.VITE_URL_API}/rsvps`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("Erro ao confirmar presença.");
+      await apiClient.post('/rsvps', form);
       setSubmitted(true);
     } catch {
       setError("Não foi possível confirmar sua presença. Tente novamente.");
