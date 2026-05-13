@@ -25,7 +25,7 @@ Site do casamento F&A — página única com informações do evento, lista de p
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/fa-wedding.git
+git clone https://github.com/penteado40/fa-wedding.git
 cd fa-wedding
 ```
 
