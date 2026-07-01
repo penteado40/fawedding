@@ -1,239 +1,220 @@
 # F&A Wedding
 
-Site do casamento F&A — página única com informações do evento, lista de presentes e confirmação de presença (RSVP).
+> A real-world full-stack project — a wedding website with a serverless email confirmation pipeline built on AWS SQS, SES, and Lambda, orchestrated with CDK as infrastructure as code.
 
-## Stack
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Hono](https://img.shields.io/badge/Hono-E36002?style=flat&logo=hono&logoColor=white)
+![AWS Lambda](https://img.shields.io/badge/AWS_Lambda-FF9900?style=flat&logo=awslambda&logoColor=white)
+![AWS SQS](https://img.shields.io/badge/AWS_SQS-FF9900?style=flat&logo=amazonsqs&logoColor=white)
+![AWS CDK](https://img.shields.io/badge/AWS_CDK-232F3E?style=flat&logo=amazonaws&logoColor=white)
+![Deployed](https://img.shields.io/badge/deployed-live-brightgreen)
 
-| Camada | Tecnologia |
-|--------|------------|
-| Framework | React + TypeScript + Vite |
-| Estilização | Tailwind CSS v3 + variáveis CSS customizadas |
-| Componentes base | shadcn/ui |
-| Ícones | lucide-react |
-| Fontes | Google Fonts — Cormorant Garamond + Jost |
+**[fawedding.com.br](https://fawedding.com.br)** — live production site
+
+---
+
+## What this project is
+
+F&A Wedding is the official website for a real wedding. Guests can view event details, browse the gift registry, and submit their RSVP — which triggers an automated email confirmation delivered through a fully serverless AWS pipeline.
+
+Beyond its purpose as a wedding site, this project was built as a **full-stack portfolio piece** exploring:
+
+- Serverless architecture with AWS Lambda, SQS, and SES managed via CDK
+- A decoupled frontend/backend deployment (GitHub Pages + serverless API)
+- Production design system with custom tokens, scroll animations, and full responsiveness
+
+---
+
+## Architecture
+
+The project is split into two independently deployed layers:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Frontend — GitHub Pages                                │
+│  React + TypeScript + Vite + Tailwind                   │
+│                                                         │
+│  ConfirmationForm  ──POST /rsvps──►  Hono API           │
+└─────────────────────────────────────────────────────────┘
+                                           │
+                                    validates + saves
+                                           │
+                                           ▼
+┌─────────────────────────────────────────────────────────┐
+│  Backend — Serverless (AWS CDK)                         │
+│                                                         │
+│  Hono API  ──enqueue──►  SQS Queue                      │
+│                               │                         │
+│                         triggers Lambda                 │
+│                               │                         │
+│                         Lambda  ──send──►  SES          │
+│                                               │         │
+│                                        Confirmation     │
+│                                        email to guest   │
+└─────────────────────────────────────────────────────────┘
+```
+
+### RSVP confirmation flow
+
+1. Guest fills out and submits the confirmation form on the frontend
+2. `ConfirmationForm` calls `POST /rsvps` on the Hono API via the centralized `apiClient`
+3. The API validates the payload with Zod, persists the RSVP, and enqueues a message to an **SQS queue**
+4. SQS triggers a **Lambda function** asynchronously
+5. Lambda composes a personalized confirmation email and delivers it via **SES**
+6. Guest receives the confirmation — without the API ever waiting for the email to send
+
+### Why SQS between the API and Lambda?
+
+Decoupling the email delivery from the HTTP response was a deliberate choice. The API returns a `201` to the guest immediately. If SES is slow, throttled, or temporarily unavailable, the message stays in the queue and Lambda retries — the guest experience is never affected. This also makes it trivial to replace or extend the email step without touching the API.
+
+### Infrastructure as Code with CDK
+
+The entire AWS infrastructure (SQS queue, Lambda function, SES configuration, IAM roles) is defined and deployed with **AWS CDK in TypeScript** — same language as the rest of the stack, no context switching, fully version-controlled.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+| Layer | Technology |
+|-------|------------|
+| Framework | React 18 + TypeScript + Vite |
+| Styling | Tailwind CSS v3 + custom CSS variables |
+| Components | shadcn/ui |
+| Icons | lucide-react |
+| Fonts | Cormorant Garamond (display) + Jost (body) |
 | Package manager | Bun |
+| Deploy | GitHub Pages |
+
+### Backend & Infrastructure
+
+| Layer | Technology |
+|-------|------------|
+| API | Hono + TypeScript |
+| Validation | Zod |
+| Queue | AWS SQS |
+| Email delivery | AWS SES |
+| Compute | AWS Lambda |
+| Infrastructure | AWS CDK (TypeScript) |
 
 ---
 
-## Instalação e setup local
+## Key Technical Decisions
 
-### Pré-requisitos
+### GitHub Pages for the frontend
+The frontend has zero server-side requirements — it's a static React SPA. GitHub Pages provides free, reliable global CDN delivery. Vite's build output drops directly into the `gh-pages` branch.
 
-- Node.js
-- Bun
+### Hono for the API
+Same reasoning as the rest of the stack: first-class TypeScript, typed context, Zod middleware integration. Hono also runs natively on Lambda and Cloudflare Workers, keeping future deployment options open.
 
-### 1. Clone o repositório
+### SQS as a buffer between API and email delivery
+Email delivery is inherently unreliable at the network level. Putting SQS between the API and Lambda means:
+- The guest gets an immediate response regardless of SES availability
+- Failed Lambda executions retry automatically from the queue
+- Email logic can evolve independently from the API
 
-```bash
-git clone https://github.com/penteado40/fa-wedding.git
-cd fa-wedding
-```
+### CDK over raw CloudFormation or console setup
+Manual AWS console configuration is not reproducible. CDK keeps the infrastructure in the same TypeScript codebase, enforces IaC from day one, and makes it straightforward to tear down and recreate the stack in any environment.
 
-### 2. Configure as variáveis de ambiente
-
-```bash
-cp .env.example .env
-```
-
-Edite o `.env` com suas configurações (veja a seção [Variáveis de ambiente](#variáveis-de-ambiente)).
-
-### 3. Instale as dependências
-
-```bash
-bun install
-```
-
-### 4. Inicie o servidor de desenvolvimento
-
-```bash
-bun dev
-```
-
-O site estará disponível em `http://localhost:5173`.
+### Static bearer token auth (no login system)
+The site is invite-only with a known, fixed guest list. A full auth system would add complexity with zero user benefit. A static bearer token injected at build time is sufficient for protecting the RSVP endpoint from anonymous submissions.
 
 ---
 
-## Variáveis de ambiente
+## Design System
 
-Definidas em `.env` (gitignored) e documentadas em `.env.example`.
+The frontend uses a bespoke design system built on CSS custom properties and extended into Tailwind.
 
-| Variável | Descrição |
-|----------|-----------|
-| `VITE_URL_API` | Base URL da API (ex: `http://localhost:3000/api`) |
-| `VITE_API_TOKEN` | Bearer token estático para autenticação |
-| `VITE_URL_GIFTS` | URL externa da lista de presentes (Lejour) |
+### Color palette
 
-O token é estático por ambiente — não há sistema de login ou sessão. Para trocar, atualize o `.env` localmente ou a variável no serviço de deploy.
+| Token | Usage |
+|-------|-------|
+| `--rosé` | Primary accent — buttons, borders, highlights |
+| `--sage` | Secondary green — complementary accents |
+| `--cream` | Base background |
+| `--gold` | Detail color for decorative elements |
+| `--charcoal` | Primary text |
 
-Ao adicionar uma nova variável `VITE_*`, declare-a também em `src/vite-env.d.ts` sob `ImportMetaEnv`.
+### Typography
+
+| Class | Font | Usage |
+|-------|------|-------|
+| `font-display` | Cormorant Garamond | Names, headings, romantic elements |
+| `font-body` | Jost | Paragraphs, labels, buttons |
+
+### Animations
+
+**Hero entrance** — CSS keyframe animations with staggered delays (0ms → 600ms) applied via utility classes.
+
+**Scroll reveal** — `IntersectionObserver` with `threshold: 0.15`. Elements animate from `translateY(30px) opacity(0)` to their final state when they enter the viewport. Items within sections animate with per-item delay: `transition-delay: ${i * 100}ms`.
 
 ---
 
-## Estrutura do projeto
+## Project Structure
 
 ```
 src/
-├── assets/                     # Imagens e logo do casal
-│   ├── f&a_logo_semfundo.PNG
-│   ├── foto5_f&a.jpg           # Foto do hero
-│   ├── f&a_footer.jpg          # Foto do footer
-│   ├── f&a_wedding_place.png   # Foto do local
-│   └── gift-*.jpg              # Fotos dos presentes
 ├── components/
-│   ├── ui/                     # Componentes base (shadcn/ui)
-│   ├── WeddingNav.tsx           # Barra de navegação fixa
-│   ├── HeroSection.tsx          # Hero com foto, nomes e countdown
-│   ├── WeddingInfo.tsx          # Informações do evento
-│   ├── GiftCarousel.tsx         # Lista de presentes
-│   ├── ConfirmationForm.tsx     # Formulário de RSVP
-│   └── WeddingFooter.tsx        # Footer com foto e versículo
+│   ├── ui/                  # shadcn/ui base components
+│   ├── WeddingNav.tsx        # Fixed navigation
+│   ├── HeroSection.tsx       # Hero with photo, names, and countdown
+│   ├── WeddingInfo.tsx       # Event date, time, and venue
+│   ├── GiftCarousel.tsx      # Gift list (links to Lejour registry)
+│   ├── ConfirmationForm.tsx  # RSVP form → POST /rsvps
+│   └── WeddingFooter.tsx     # Footer with photo and verse
 ├── lib/
-│   └── api-client.ts            # Cliente HTTP centralizado
+│   └── api-client.ts         # Centralized HTTP client (injects Bearer token)
 ├── pages/
-│   └── Index.tsx                # Página principal — composição das seções
-├── index.css                    # Variáveis CSS, fontes e animações globais
-└── vite-env.d.ts               # Tipagem das variáveis de ambiente
+│   └── Index.tsx             # Page composition
+├── index.css                 # CSS variables, fonts, animations
+└── vite-env.d.ts            # VITE_* environment type declarations
 ```
-
-### Ordem das seções na página
-
-1. `WeddingNav` — navegação fixa com links para `#info-section`, `#gifts-section`
-2. `HeroSection` — foto, nomes do casal e countdown
-3. `WeddingInfo` — data, horário e local (`#info-section`)
-4. `GiftCarousel` — lista de presentes (`#gifts-section`)
-5. `WeddingFooter` — foto e versículo
-
-### Comunicação com a API
-
-Toda comunicação com o backend passa pelo cliente centralizado — nunca use `fetch` diretamente em componentes.
-
-```ts
-import { apiClient } from "@/lib/api-client"
-
-apiClient.get<T>(path)
-apiClient.post<T>(path, body)
-apiClient.put<T>(path, body)
-apiClient.delete<T>(path)
-```
-
-O cliente injeta automaticamente `Authorization: Bearer <token>` e `Content-Type: application/json` em todas as requisições.
-
-Uso atual: `ConfirmationForm.tsx` usa `apiClient.post('/rsvps', form)` para submeter confirmações de presença. `GiftCarousel.tsx` usa `VITE_URL_GIFTS` diretamente (link externo, sem `apiClient`).
 
 ---
 
-## Design system
+## Local Setup
 
-### Paleta de cores
+**Prerequisites:** Node.js 18+, Bun
 
-Definida em `src/index.css` sob `:root` como variáveis CSS HSL.
+```bash
+# 1. Clone
+git clone https://github.com/penteado40/fa-wedding.git
+cd fa-wedding
 
-| Token | Uso |
-|-------|-----|
-| `--rosé` | Cor principal de destaque |
-| `--rosé-light` | Fundo suave de badges e ícones |
-| `--sage` | Cor secundária verde-sálvia |
-| `--sage-light` | Fundo suave sage |
-| `--peach` | Cor terciária pêssego |
-| `--lavender` | Lilás para acentos |
-| `--cream` | Fundo creme claro |
-| `--gold` | Dourado para detalhes |
-| `--charcoal` | Texto principal escuro |
-| `--background` | Fundo geral (creme quente) |
-| `--gradient-section` | Gradiente de fundo das seções |
-| `--gradient-hero` | Overlay escuro do hero |
-| `--gradient-footer` | Overlay escuro do footer |
+# 2. Environment
+cp .env.example .env
+# Fill in the values below
 
-Uso no Tailwind: `text-[hsl(var(--rosé))]`, `bg-[hsl(var(--cream))]`, etc.
+# 3. Install dependencies
+bun install
 
-### Tipografia
-
-| Classe | Fonte | Uso |
-|--------|-------|-----|
-| `font-display` | Cormorant Garamond | Títulos, nomes do casal, elementos românticos |
-| `font-body` | Jost | Parágrafos, labels, botões, textos de apoio |
-
-Pesos disponíveis: 300 (light), 400 (regular), 500 (medium) + italic para `font-display`.
-
-### Sombras customizadas
-
-```css
---shadow-soft:  0 4px  24px  -4px  rgba(158, 190, 191, 0.15);
---shadow-card:  0 8px  32px  -8px  rgba(158, 190, 191, 0.20);
---shadow-hover: 0 16px 48px  -12px rgba(158, 190, 191, 0.30);
+# 4. Start dev server
+bun dev
 ```
 
-Usadas via Tailwind: `shadow-soft`, `shadow-card`, `shadow-hover`.
+Available at `http://localhost:5173`
 
-### Animações
+### Environment variables
 
-**Hero (carregamento imediato)** — classes definidas em `index.css`:
+| Variable | Description |
+|----------|-------------|
+| `VITE_URL_API` | Backend API base URL (e.g. `http://localhost:3000/api`) |
+| `VITE_API_TOKEN` | Static bearer token for API authentication |
+| `VITE_URL_GIFTS` | External gift registry URL (Lejour) |
 
-| Classe | Delay |
-|--------|-------|
-| `.animate-fade-up` | sem delay |
-| `.animate-fade-up-delay-1` | 150ms |
-| `.animate-fade-up-delay-2` | 300ms |
-| `.animate-fade-up-delay-3` | 450ms |
-| `.animate-fade-up-delay-4` | 600ms |
-
-**Scroll reveal** — padrão com `IntersectionObserver` usado nas seções:
-
-```tsx
-const [visible, setVisible] = useState(false);
-const sectionRef = useRef(null);
-
-useEffect(() => {
-  const obs = new IntersectionObserver(
-    ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-    { threshold: 0.15 }
-  );
-  if (sectionRef.current) obs.observe(sectionRef.current);
-  return () => obs.disconnect();
-}, []);
-```
-
-Aplicado inline com delay escalonado por item:
-```tsx
-style={{
-  opacity: visible ? 1 : 0,
-  transform: visible ? "translateY(0)" : "translateY(30px)",
-  transition: `opacity 0.6s ease ${i * 100}ms, transform 0.6s ease ${i * 100}ms`,
-}}
-```
-
-### Cards de informação
-
-Estilo padrão aplicado nos cards de Data, Horário e Local:
-
-- Background `bg-card`, border-radius `rounded-2xl`, padding `p-6`
-- Sombra `shadow-card`, hover `hover:shadow-hover hover:-translate-y-1 transition-all duration-500`
-- Border `border border-border/50`
-- Ícone em container `w-11 h-11 rounded-xl` com background colorido
-- Label em `font-body text-xs tracking-widest uppercase text-muted-foreground`
-- Valor principal em `font-display text-xl text-charcoal font-medium`
-
-### Botões
-
-**Primário (outline rosé):**
-```tsx
-className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-[hsl(var(--rosé))] text-[hsl(var(--rosé))] font-body text-sm tracking-widest uppercase hover:bg-[hsl(var(--rosé))] hover:text-white transition-all duration-300"
-```
-
-**Pequeno (filled rosé):**
-```tsx
-className="px-4 py-2 bg-[hsl(var(--rosé))] text-[hsl(var(--primary-foreground))] text-xs font-body tracking-wider uppercase rounded-full hover:bg-[hsl(182,20%,58%)] transition-colors duration-200"
-```
-
-### Responsividade
-
-- Mobile-first
-- Breakpoint principal: `md:` (768px)
-- Títulos de seção: `text-4xl md:text-5xl`
-- Container: `max-w-5xl mx-auto px-4` na maioria das seções
+> To add a new `VITE_*` variable, declare it in `src/vite-env.d.ts` under `ImportMetaEnv`.
 
 ---
 
-## Licença
+## Related
 
-Projeto pessoal. Todos os direitos reservados.
+- **[inventory-api](https://github.com/penteado40/inventory-api)** — Multi-tenant inventory REST API (Hono · TypeScript · Prisma · PostgreSQL)
+
+---
+
+## Author
+
+**Felipe Penteado** — Full Stack Engineer
+[felipepenteado.com.br](https://felipepenteado.com.br) · [LinkedIn](https://linkedin.com/in/felipepenteado) · [GitHub](https://github.com/penteado40)
