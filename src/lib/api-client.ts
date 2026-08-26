@@ -1,5 +1,10 @@
 const API_URL = import.meta.env.VITE_URL_API ?? ''
 const API_TOKEN = import.meta.env.VITE_API_TOKEN ?? ''
+const WEDDING_ID = import.meta.env.VITE_WEDDING_ID ?? ''
+
+export function rsvpsPath(suffix = ''): string {
+  return `/weddings/${WEDDING_ID}/rsvps${suffix}`
+}
 
 async function apiFetch<T>(path: string, options: RequestInit = {}, token = API_TOKEN): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {

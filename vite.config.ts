@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   base: "/",
 
   assetsInclude: ["**/*.PNG"],
-  envPrefix: ["VITE_URL_API", "VITE_URL_GIFTS", "VITE_API_TOKEN"],
+  envPrefix: ["VITE_URL_API", "VITE_URL_GIFTS", "VITE_API_TOKEN", "VITE_WEDDING_ID"],
   server: {
     host: "::",
     port: 8080,

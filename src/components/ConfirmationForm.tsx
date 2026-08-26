@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import confirmationBg from "@/assets/f&a_confirmation.jpg";
-import { apiClient } from "@/lib/api-client";
+import { apiClient, rsvpsPath } from "@/lib/api-client";
 
 export const ConfirmationForm = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ export const ConfirmationForm = () => {
     setLoading(true);
     setError(null);
     try {
-      await apiClient.post('/rsvps', form);
+      await apiClient.post(rsvpsPath(), form);
       setSubmitted(true);
     } catch {
       setError("Não foi possível confirmar sua presença. Tente novamente.");
