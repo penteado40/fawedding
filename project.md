@@ -128,9 +128,9 @@ className="px-4 py-2 bg-primary text-primary-foreground text-xs font-body tracki
 ## Sombras (Custom Tokens)
 
 ```css
---shadow-soft:  0 4px  24px  -4px  rgba(158, 190, 191, 0.15);
---shadow-card:  0 8px  32px  -8px  rgba(158, 190, 191, 0.20);
---shadow-hover: 0 16px 48px  -12px rgba(158, 190, 191, 0.30);
+--shadow-soft:  0 4px  24px  -4px  hsl(var(--primary) / 0.15);
+--shadow-card:  0 8px  32px  -8px  hsl(var(--primary) / 0.20);
+--shadow-hover: 0 16px 48px  -12px hsl(var(--primary) / 0.30);
 ```
 
 Usadas via Tailwind: `shadow-soft`, `shadow-card`, `shadow-hover`.
