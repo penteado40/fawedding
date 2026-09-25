@@ -11,8 +11,8 @@ const details = [
     label: "Data",
     value: "28 de Maio de 2026",
     sub: "Quinta-feira",
-    color: "var(--rosé)",
-    bg: "var(--rosé-light)",
+    color: "var(--primary)",
+    bg: "var(--primary-light)",
   },
   {
     icon: Clock,
@@ -78,13 +78,13 @@ export const WeddingInfo = () => {
             >
               <Heart
                 size={20}
-                className="mx-auto mb-4 drop-shadow-sm text-[hsl(var(--rosé-light))] fill-[hsl(var(--rosé-light))]"
+                className="mx-auto mb-4 drop-shadow-sm text-primary-light fill-primary-light"
               />
               <h2
                 className="font-display text-4xl md:text-5xl text-charcoal font-light mb-4"
               >
                 Informações do{" "}
-                <span className="italic text-[hsl(var(--rosé))]">Casamento</span>
+                <span className="italic text-primary">Casamento</span>
               </h2>
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="h-px w-14 bg-charcoal/30" />
@@ -170,7 +170,7 @@ export const WeddingInfo = () => {
                 href={MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-white/30 bg-white/20 backdrop-blur-sm text-white font-body text-sm tracking-widest uppercase hover:bg-white hover:text-[hsl(var(--rosé))] transition-all duration-300 shadow-soft hover:shadow-card"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-white/30 bg-white/20 backdrop-blur-sm text-white font-body text-sm tracking-widest uppercase hover:bg-white hover:text-primary transition-all duration-300 shadow-soft hover:shadow-card"
               >
                 <MapPin size={15} />
                 Ver no Mapa

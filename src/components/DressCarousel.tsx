@@ -129,9 +129,9 @@ export const DressCarousel = () => {
           </h2>
 
           <div className="flex items-center justify-center gap-4 mb-5">
-            <div className="h-px w-14 bg-[hsl(var(--rosé))]/30" />
-            <div className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--rosé))]/40" />
-            <div className="h-px w-14 bg-[hsl(var(--rosé))]/30" />
+            <div className="h-px w-14 bg-primary/30" />
+            <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
+            <div className="h-px w-14 bg-primary/30" />
           </div>
 
           <p className="font-body text-muted-foreground max-w-md mx-auto leading-relaxed">
@@ -149,7 +149,7 @@ export const DressCarousel = () => {
             aria-label="Anterior"
             className="absolute -left-3 md:left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-card flex items-center justify-center transition-all duration-200 hover:shadow-hover hover:scale-105 disabled:opacity-20 disabled:pointer-events-none"
           >
-            <ChevronLeft size={18} className="text-[hsl(var(--rosé))]" />
+            <ChevronLeft size={18} className="text-primary" />
           </button>
 
           {/* Track */}
@@ -166,7 +166,7 @@ export const DressCarousel = () => {
             aria-label="Próximo"
             className="absolute -right-3 md:right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-card border border-border shadow-card flex items-center justify-center transition-all duration-200 hover:shadow-hover hover:scale-105 disabled:opacity-20 disabled:pointer-events-none"
           >
-            <ChevronRight size={18} className="text-[hsl(var(--rosé))]" />
+            <ChevronRight size={18} className="text-primary" />
           </button>
         </div>
 

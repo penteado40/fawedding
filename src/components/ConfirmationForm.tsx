@@ -64,7 +64,7 @@ export const ConfirmationForm = () => {
           </div>
           <h2 className="font-display text-4xl md:text-5xl text-white font-light mb-4">
             Confirme sua{" "}
-            <span className="italic text-[hsl(var(--rosé-light))]">Presença</span>
+            <span className="italic text-primary-light">Presença</span>
           </h2>
           <p className="font-body text-white/75 max-w-sm mx-auto leading-relaxed">
             Preencha o formulário abaixo para confirmar que estará conosco neste dia tão especial.
@@ -76,7 +76,7 @@ export const ConfirmationForm = () => {
         >
           {submitted ? (
             <div className="text-center py-6">
-              <Heart size={48} className="mx-auto text-[hsl(var(--rosé))] fill-current mb-4" />
+              <Heart size={48} className="mx-auto text-primary fill-current mb-4" />
               <h3 className="font-display text-2xl text-charcoal mb-2">Presença confirmada!</h3>
               <p className="font-body text-muted-foreground">
                 Obrigado, <strong>{form.name}</strong>! Mal podemos esperar para celebrar com você.
@@ -96,7 +96,7 @@ export const ConfirmationForm = () => {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Seu nome"
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow duration-200"
                 />
               </div>
 
@@ -112,7 +112,7 @@ export const ConfirmationForm = () => {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="seu@email.com"
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow duration-200"
                 />
               </div>
 
@@ -128,14 +128,14 @@ export const ConfirmationForm = () => {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="(11) 99999-9999"
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow duration-200"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="mt-2 w-full py-3.5 bg-[hsl(var(--rosé))] text-white font-body text-xs tracking-widest uppercase rounded-full hover:bg-[hsl(182,20%,48%)] active:scale-95 transition-all duration-200 shadow-soft disabled:opacity-60 disabled:cursor-not-allowed"
+                className="mt-2 w-full py-3.5 bg-primary text-white font-body text-xs tracking-widest uppercase rounded-full hover:bg-primary-dark active:scale-95 transition-all duration-200 shadow-soft disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading ? "Confirmando..." : "Confirmar Presença"}
               </button>

@@ -92,13 +92,13 @@ export const LoginSection = ({ open, onClose, onSuccess }: LoginSectionProps) =>
 
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-8 gap-3">
-          <div className="w-14 h-14 rounded-full bg-[hsl(var(--rosé))] flex items-center justify-center overflow-hidden">
+          <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center overflow-hidden">
             <img src={logo} alt="F&A" className="w-10 h-10 object-contain" />
           </div>
           <h2 className="font-display text-4xl text-charcoal font-light leading-tight">
             Área dos Noivos
           </h2>
-          <p className="font-display italic text-xl text-[hsl(var(--rosé))]">
+          <p className="font-display italic text-xl text-primary">
             Felipe &amp; Amanda
           </p>
           <p className="font-body text-xs tracking-widest uppercase text-muted-foreground">
@@ -123,7 +123,7 @@ export const LoginSection = ({ open, onClose, onSuccess }: LoginSectionProps) =>
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow duration-200"
             />
           </div>
 
@@ -142,7 +142,7 @@ export const LoginSection = ({ open, onClose, onSuccess }: LoginSectionProps) =>
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 pr-12 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-[hsl(var(--rosé))] transition-shadow duration-200"
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 pr-12 font-body text-sm text-charcoal placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary transition-shadow duration-200"
               />
               <button
                 type="button"
@@ -162,7 +162,7 @@ export const LoginSection = ({ open, onClose, onSuccess }: LoginSectionProps) =>
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full py-3.5 bg-[hsl(var(--rosé))] text-white font-body text-xs tracking-widest uppercase rounded-full hover:bg-[hsl(182,20%,58%)] active:scale-95 transition-all duration-200 shadow-soft disabled:opacity-60 disabled:cursor-not-allowed"
+            className="mt-2 w-full py-3.5 bg-primary text-white font-body text-xs tracking-widest uppercase rounded-full hover:bg-primary-dark active:scale-95 transition-all duration-200 shadow-soft disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {loading ? "Entrando..." : "Entrar"}
           </button>
