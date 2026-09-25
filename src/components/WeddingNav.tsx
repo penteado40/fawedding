@@ -55,7 +55,7 @@ export const WeddingNav = ({ onBrideGroomClick }: WeddingNavProps) => {
           <Heart
             size={14}
             className={`fill-current transition-colors duration-300 ${
-              scrolled ? "text-[hsl(var(--rosé))]" : "text-[hsl(var(--rosé-light))]"
+              scrolled ? "text-primary" : "text-primary-light"
             }`}
           />
           Felipe &amp; Amanda
@@ -67,7 +67,7 @@ export const WeddingNav = ({ onBrideGroomClick }: WeddingNavProps) => {
             <button
               key={link.href}
               onClick={() => handleNav(link.href)}
-              className={`font-body text-xs tracking-widest uppercase transition-colors duration-300 hover:text-[hsl(var(--rosé))] ${
+              className={`font-body text-xs tracking-widest uppercase transition-colors duration-300 hover:text-primary ${
                 scrolled ? "text-muted-foreground" : "text-white/80"
               }`}
             >
@@ -101,7 +101,7 @@ export const WeddingNav = ({ onBrideGroomClick }: WeddingNavProps) => {
             <button
               key={link.href}
               onClick={() => handleNav(link.href)}
-              className="text-left font-body text-xs tracking-widest uppercase text-muted-foreground hover:text-[hsl(var(--rosé))] transition-colors duration-200"
+              className="text-left font-body text-xs tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {link.label}
             </button>

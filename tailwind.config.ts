@@ -28,6 +28,8 @@ export default {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          light: "hsl(var(--primary-light))",
+          dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -65,10 +67,6 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
         // Wedding palette
-        rose: {
-          DEFAULT: "hsl(var(--rosé))",
-          light: "hsl(var(--rosé-light))",
-        },
         sage: {
           DEFAULT: "hsl(var(--sage))",
           light: "hsl(var(--sage-light))",

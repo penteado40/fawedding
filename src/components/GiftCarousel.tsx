@@ -28,14 +28,14 @@ export const GiftCarousel = () => {
           className={`text-center transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <div className="flex justify-center mb-4">
-            <span className="inline-flex items-center gap-2 bg-rose-light text-[hsl(var(--rosé))] px-4 py-1.5 rounded-full text-xs font-body tracking-widest uppercase">
+            <span className="inline-flex items-center gap-2 bg-primary-light text-primary px-4 py-1.5 rounded-full text-xs font-body tracking-widest uppercase">
               <Gift size={13} />
               Lista de Presentes
             </span>
           </div>
           <h2 className="font-display text-4xl md:text-5xl text-charcoal font-light mb-4">
             Sugestões de{" "}
-            <span className="italic text-[hsl(var(--rosé))]">Presentes</span>
+            <span className="italic text-primary">Presentes</span>
           </h2>
           <p className="font-body text-muted-foreground max-w-md mx-auto leading-relaxed mb-10">
             Se deseja nos presentear, acesse nossa lista e escolha um item.
@@ -45,7 +45,7 @@ export const GiftCarousel = () => {
             href={GIFT_LIST_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[hsl(var(--rosé))] text-white font-body text-sm tracking-wide px-8 py-3.5 rounded-full shadow-card hover:shadow-hover hover:brightness-105 transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-primary text-white font-body text-sm tracking-wide px-8 py-3.5 rounded-full shadow-card hover:shadow-hover hover:brightness-105 transition-all duration-200"
           >
             <Gift size={16} />
             Ver Lista de Presentes

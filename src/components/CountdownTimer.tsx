@@ -53,14 +53,14 @@ export const CountdownTimer = ({ targetDate, variant = "default" }: CountdownTim
               className={
                 isHero
                   ? "w-14 h-14 md:w-20 md:h-20 rounded-2xl flex items-center justify-center border border-white/25 bg-white/10 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.35)] backdrop-blur-sm"
-                  : "w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-card flex items-center justify-center shadow-soft border border-[hsl(var(--rosé-light))]"
+                  : "w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-card flex items-center justify-center shadow-soft border border-primary-light"
               }
             >
               <span
                 className={
                   isHero
                     ? "font-display text-2xl md:text-3xl font-light text-white"
-                    : "font-display text-3xl md:text-4xl font-light text-[hsl(var(--rosé))]"
+                    : "font-display text-3xl md:text-4xl font-light text-primary"
                 }
               >
                 {String(u.value).padStart(2, "0")}

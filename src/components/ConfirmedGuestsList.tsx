@@ -58,14 +58,14 @@ export const ConfirmedGuestsList = ({ token }: ConfirmedGuestsListProps) => {
         >
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <span className="inline-flex items-center gap-2 bg-[hsl(var(--rosé-light))] text-[hsl(var(--rosé))] px-4 py-1.5 rounded-full text-xs font-body tracking-widest uppercase">
+              <span className="inline-flex items-center gap-2 bg-primary-light text-primary px-4 py-1.5 rounded-full text-xs font-body tracking-widest uppercase">
                 <Users size={13} />
                 Área dos Noivos
               </span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl text-charcoal font-light mb-2">
               Confirmações{" "}
-              <span className="italic text-[hsl(var(--rosé))]">de Presença</span>
+              <span className="italic text-primary">de Presença</span>
             </h2>
             {!isLoading && !isError && (
               <p className="font-body text-sm text-muted-foreground">
@@ -92,7 +92,7 @@ export const ConfirmedGuestsList = ({ token }: ConfirmedGuestsListProps) => {
               <div className="p-10 text-center">
                 <Heart
                   size={32}
-                  className="mx-auto text-[hsl(var(--rosé))] fill-current mb-3 opacity-40"
+                  className="mx-auto text-primary fill-current mb-3 opacity-40"
                 />
                 <p className="font-body text-sm text-muted-foreground">
                   Nenhuma confirmação ainda.
@@ -118,8 +118,8 @@ export const ConfirmedGuestsList = ({ token }: ConfirmedGuestsListProps) => {
                         transition: `opacity 0.4s ease ${i * 40 + 200}ms, transform 0.4s ease ${i * 40 + 200}ms`,
                       }}
                     >
-                      <div className="w-9 h-9 rounded-full bg-[hsl(var(--rosé-light))] flex items-center justify-center flex-shrink-0">
-                        <span className="font-body text-sm text-[hsl(var(--rosé))] font-medium">
+                      <div className="w-9 h-9 rounded-full bg-primary-light flex items-center justify-center flex-shrink-0">
+                        <span className="font-body text-sm text-primary font-medium">
                           {rsvp.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -167,7 +167,7 @@ export const ConfirmedGuestsList = ({ token }: ConfirmedGuestsListProps) => {
                               onClick={() => resendMutation.mutate(rsvp.id)}
                               disabled={isResending}
                               aria-label={`Reenviar email de confirmação para ${rsvp.name}`}
-                              className="flex items-center gap-1 text-xs font-body text-[hsl(var(--rosé))] border border-[hsl(var(--rosé))] rounded-full px-2.5 py-1 hover:bg-[hsl(var(--rosé-light))] transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                              className="flex items-center gap-1 text-xs font-body text-primary border border-primary rounded-full px-2.5 py-1 hover:bg-primary-light transition-colors duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                             >
                               <RefreshCw size={12} className={isResending ? "animate-spin" : ""} />
                               {isResending ? "Reenviando..." : "Reenviar"}

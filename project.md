@@ -15,8 +15,9 @@ Definidas em `src/index.css` sob `:root`:
 
 | Token               | Uso                                      |
 |---------------------|------------------------------------------|
-| `--rosé`            | Cor principal de destaque (dusty blue/rosé) |
-| `--rosé-light`      | Fundo suave de badges e ícones           |
+| `--primary`         | Cor principal de destaque (dusty blue) — `text-primary`, `bg-primary` |
+| `--primary-dark`    | Hover da cor principal — `hover:bg-primary-dark` |
+| `--primary-light`   | Fundo suave de badges e ícones — `bg-primary-light` |
 | `--sage`            | Cor secundária verde-salvia              |
 | `--sage-light`      | Fundo suave sage                         |
 | `--peach`           | Cor terciária pêssego                    |
@@ -45,9 +46,9 @@ Cada seção segue este padrão geral:
   <div className="container mx-auto px-4 max-w-5xl">
     {/* Header com animação de scroll */}
     <div className={`text-center mb-16 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-      <Heart size={20} className="mx-auto mb-4 text-[hsl(var(--rosé))] fill-[hsl(var(--rosé))]" />
+      <Heart size={20} className="mx-auto mb-4 text-primary fill-primary" />
       <h2 className="font-display text-4xl md:text-5xl text-charcoal font-light mb-4">
-        Texto normal <span className="italic text-[hsl(var(--rosé))]">em destaque</span>
+        Texto normal <span className="italic text-primary">em destaque</span>
       </h2>
       {/* Divider com logo */}
       <div className="flex items-center justify-center gap-4 mb-6">
@@ -114,22 +115,22 @@ Layout interno do card:
 
 ## Botões
 
-### Primário (outline rosé)
+### Primário (outline primary)
 ```tsx
-className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-[hsl(var(--rosé))] text-[hsl(var(--rosé))] font-body text-sm tracking-widest uppercase hover:bg-[hsl(var(--rosé))] hover:text-white transition-all duration-300"
+className="inline-flex items-center gap-2 px-7 py-3 rounded-full border-2 border-primary text-primary font-body text-sm tracking-widest uppercase hover:bg-primary hover:text-white transition-all duration-300"
 ```
 
-### Pequeno (filled rosé)
+### Pequeno (filled primary)
 ```tsx
-className="px-4 py-2 bg-[hsl(var(--rosé))] text-[hsl(var(--primary-foreground))] text-xs font-body tracking-wider uppercase rounded-full hover:bg-[hsl(182,20%,58%)] transition-colors duration-200"
+className="px-4 py-2 bg-primary text-primary-foreground text-xs font-body tracking-wider uppercase rounded-full hover:bg-primary-dark transition-colors duration-200"
 ```
 
 ## Sombras (Custom Tokens)
 
 ```css
---shadow-soft:  0 4px  24px  -4px  rgba(158, 190, 191, 0.15);
---shadow-card:  0 8px  32px  -8px  rgba(158, 190, 191, 0.20);
---shadow-hover: 0 16px 48px  -12px rgba(158, 190, 191, 0.30);
+--shadow-soft:  0 4px  24px  -4px  hsl(var(--primary) / 0.15);
+--shadow-card:  0 8px  32px  -8px  hsl(var(--primary) / 0.20);
+--shadow-hover: 0 16px 48px  -12px hsl(var(--primary) / 0.30);
 ```
 
 Usadas via Tailwind: `shadow-soft`, `shadow-card`, `shadow-hover`.

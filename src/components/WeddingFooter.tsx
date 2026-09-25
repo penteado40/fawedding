@@ -18,18 +18,18 @@ export const WeddingFooter = () => {
         <div className="relative z-10 h-full flex flex-col items-center justify-center py-14 px-6 text-center">
           {/* Divider with hearts */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="h-px w-12 bg-[hsl(var(--rosé-light))]/60" />
+            <div className="h-px w-12 bg-primary-light/60" />
             <Heart
               size={16}
-              className="text-[hsl(var(--rosé-light))] fill-[hsl(var(--rosé-light))]"
+              className="text-primary-light fill-primary-light"
             />
-            <div className="h-px w-12 bg-[hsl(var(--rosé-light))]/60" />
+            <div className="h-px w-12 bg-primary-light/60" />
           </div>
 
           {/* Names */}
           <h2 className="font-display font-light text-4xl md:text-6xl text-white mb-2">
             Felipe{" "}
-            <span className="italic text-[hsl(var(--rosé-light))]">&amp;</span>{" "}
+            <span className="italic text-primary-light">&amp;</span>{" "}
             Amanda
           </h2>
 
@@ -51,7 +51,7 @@ export const WeddingFooter = () => {
       <div className="bg-[hsl(20,15%,12%)] text-[hsl(0,0%,55%)] py-5 px-6 text-center">
         <p className="font-body text-xs tracking-widest">
           Feito com{" "}
-          <Heart size={10} className="inline text-[hsl(var(--rosé))] fill-[hsl(var(--rosé))]" />{" "}
+          <Heart size={10} className="inline text-primary fill-primary" />{" "}
           para o dia mais especial das nossas vidas
         </p>
       </div>

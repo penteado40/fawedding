@@ -131,7 +131,8 @@ The frontend uses a bespoke design system built on CSS custom properties and ext
 
 | Token | Usage |
 |-------|-------|
-| `--rosé` | Primary accent — buttons, borders, highlights |
+| `--primary` | Primary accent (dusty blue) — buttons, borders, highlights |
+| `--primary-light` / `--primary-dark` | Soft backgrounds / hover state for the primary accent |
 | `--sage` | Secondary green — complementary accents |
 | `--cream` | Base background |
 | `--gold` | Detail color for decorative elements |
